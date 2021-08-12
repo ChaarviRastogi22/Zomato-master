@@ -28,9 +28,7 @@ export default (passport) => {
             const token = user.generateJwtToken();
             // return user
             done(null, { user, token });
-          } 
-          
-          else {
+          } else {
             // create new user
             const user = await UserModel.create(newUser);
 

@@ -52,7 +52,6 @@ Params    none
 Access    Public
 Method    GET  
 */
-
 Router.get(
   "/google",
   passport.authenticate("google", {
