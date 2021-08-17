@@ -1,40 +1,50 @@
+// Importing Env Variables
+require("dotenv").config();
+
+// Libraries
 import express from "express";
-import passport from "passport";;
+import passport from "passport";
 import multer from "multer";
 
-//Database
-import { ImageModel } from "../../database/image";
 
-//Utilities
+// Database modal
+import { ImageModel } from "../../database/allModels";
+
+// Utilities
 import { s3Upload } from "../../Utils/AWS/s3";
 
 const Router = express.Router();
 
-//Multer config
+// Multer Config
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 /*
-Route         /
-Descrp        Uploads given image to s3 bucket and saves file link to mongoDB.
-Params        none
-Access        Public
-Method        POST
+Route     /
+Des       Uploads given image to S3 bucket, and saves file link to mongodb
+Params    none
+Access    Public
+Method    POST  
 */
+Router.post("/", upload.single("file"), async (req, res) => {
+  try {
+    const file = req.file;
 
-Router.post("/", upload.array("file", 4), async(req,res) => {
-    try{
-        //UPLOAD TO S3
-        const file = req.files;
+    // s3 bucket options
+    const bucketOptions = {
+      Bucket: "zomatomaster",
+      Key: file.originalname,
+      Body: file.buffer,
+      ContentType: file.mimetype,
+      ACL: "public-read", // Access Control List
+    };
 
-        //s3 bucket options
-        
+    const uploadImage = await s3Upload(bucketOptions);
 
-     return res.status(200).json({ uploadimage: "yay" });
-
-    } catch (error) {
-        return res.status(500).json({error : error.message });
-    }
+    return res.status(200).json({ uploadImage });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
 });
 
 export default Router;
