@@ -1,4 +1,4 @@
-import JwtPassport from "passport-jwt";
+import JwtPassport from "passport-jwt"; 
 
 // Database Model
 import { UserModel } from "../database/user";
