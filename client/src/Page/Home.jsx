@@ -15,6 +15,7 @@ const Home = () => {
       {type === "dining" && <Dining />}
       {type === "night" && <NightLife />}
       {type === "nutri" && <Nutrition />}
+      
     </div>
   );
 };
