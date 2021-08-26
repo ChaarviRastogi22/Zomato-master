@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 // components
-import DeliveryCarousal from "./DeliveryCaraousel";
+import DeliveryCarousal from "./DeliveryCarousal";
 import Brand from "./Brand";
 import RestaurantCard from "../RestaurantCard";
 
@@ -68,3 +68,4 @@ const Delivery = () => {
 };
 
 export default Delivery;
+
